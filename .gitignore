@@ -1,0 +1,6 @@
+bin
+logs/*
+build.sh
+webserv
+tests/a.out
+.DS_Store
