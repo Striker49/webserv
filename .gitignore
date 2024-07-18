@@ -2,5 +2,8 @@ bin
 logs/*
 build.sh
 webserv
-tests/a.out
+tests/client/client_tester
 .DS_Store
+www/public/html/links.html
+www/public/html/cgi.html
+www/cgi_bin/temp.txt

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugger UI</title>
+    <style>
+        body {
+            background-color: #001f3f; /* Deep blue */
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #001f3f;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #0074D9;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        .sidebar button:hover {
+            background-color: #005bb5;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        form {
+            margin: 20px 0;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+        input[type="text"],
+        input[type="file"] {
+            padding: 5px;
+            width: calc(100% - 110px);
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #0074D9;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #005bb5;
+        }
+        .server-config {
+            margin-top: 20px;
+        }
+        .server-config h2 {
+            color: #0074D9;
+        }
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .config-table th, .config-table td {
+            padding: 10px;
+            border: 1px solid #0074D9;
+            text-align: left;
+        }
+        .config-table th {
+            background-color: #0074D9;
+            color: white;
+        }
+        .config-table .location-item {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <button onclick="showPythonForm()">Python</button>
+            <button onclick="showPhpForm()">PHP</button>
+            <button onclick="showBashForm()">Bash</button>
+        </div>
+        <div class="content">
+            <h1>Debugger UI</h1>
+            <p>Use the sidebar buttons to select your scripting language.</p>
+
+            <div id="pythonForm" style="display:none;">
+                <form id="uploadForm" action="/hello_world.py" method="get" enctype="multipart/form-data">
+                    <label for="name">Python: </label>
+                    <input type="text" id="name" name="name">
+                    <input type="submit" value="Send">
+                </form>
+            </div>
+
+            <div id="phpForm" style="display:none;">
+                <form id="uploadForm" action="/hello_world.php" method="get" enctype="multipart/form-data">
+                    <label for="name">PHP: </label>
+                    <input type="text" id="name" name="name">
+                    <input type="submit" value="Send">
+                </form>
+            </div>
+
+            <div id="bashForm" style="display:none;">
+                <form id="uploadForm" action="/hello_world.sh" method="get" enctype="multipart/form-data">
+                    <label for="name">Bash: </label>
+                    <input type="text" id="name" name="name">
+                    <input type="submit" value="Send">
+                </form>
+            </div>
+
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <label for="file">Upload File:</label>
+                <input type="file" name="file" id="file">
+                <input type="submit" value="Upload">
+            </form>
+
+            <form action="/upload.py" method="post" enctype="multipart/form-data">
+                <label for="fileCGI">Upload via CGI:</label>
+                <input type="file" name="file" id="fileCGI">
+                <input type="submit" value="Upload">
+            </form>
+
+            <div class="server-config">
+                <h2>Server Configuration</h2>
+                <table class="config-table">
+                    <tr>
+                        <th>Config Item</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>listen</td>
+                        <td>2323</td>
+                    </tr>
+                    <tr>
+                        <td>server_name</td>
+                        <td>webserv</td>
+                    </tr>
+                    <tr>
+                        <td>root</td>
+                        <td>www/</td>
+                    </tr>
+                    <tr>
+                        <td>max_body_size</td>
+                        <td>600M</td>
+                    </tr>
+                    <tr>
+                        <td>upload_path</td>
+                        <td>www/upload/</td>
+                    </tr>
+                    <tr>
+                        <td>autoindex</td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>default_methods</td>
+                        <td>GET</td>
+                    </tr>
+                </table>
+
+                <h2>Error Pages</h2>
+                <table class="config-table">
+                    <tr>
+                        <th>Error Code</th>
+                        <th>Path</th>
+                    </tr>
+                    <tr>
+                        <td>400</td>
+                        <td>www/public/html/error/400.html</td>
+                    </tr>
+                    <tr>
+                        <td>401</td>
+                        <td>www/public/html/error/401.html</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>www/public/html/error/404.html</td>
+                    </tr>
+                    <tr>
+                        <td>405</td>
+                        <td>www/public/html/error/405.html</td>
+                    </tr>
+                    <tr>
+                        <td>413</td>
+                        <td>www/public/html/error/413.html</td>
+                    </tr>
+                    <tr>
+                        <td>415</td>
+                        <td>www/public/html/error/415.html</td>
+                    </tr>
+                    <tr>
+                        <td>500</td>
+                        <td>www/public/html/error/500.html</td>
+                    </tr>
+                    <tr>
+                        <td>505</td>
+                        <td>www/public/html/error/505.html</td>
+                    </tr>
+                </table>
+
+                <h2>Locations</h2>
+                <table class="config-table">
+                    <tr>
+                        <th>Path</th>
+                        <th>Root</th>
+                        <th>Index</th>
+                        <th>Autoindex</th>
+                        <th>Allowed Methods</th>
+                        <th>CGI</th>
+                    </tr>
+                    <tr>
+                        <td>/</td>
+                        <td>www/</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>/public</td>
+                        <td>www/public</td>
+                        <td></td>
+                        <td>true</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>/public/assets</td>
+                        <td>www/public/assets</td>
+                        <td></td>
+                        <td>true</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>/public/css</td>
+                        <td>www/public/css</td>
+                        <td></td>
+                        <td>true</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>/public/html</td>
+                        <td>www/public/html</td>
+                        <td>index3.html</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>/public/javascript</td>
+                        <td>www/public/javascript</td>
+                        <td></td>
+                        <td>true</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>/err</td>
+                        <td>www/public/html/error</td>
+                        <td></td>
+                        <td>true</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>/teapot</td>
+                        <td>www/public/html/error/418.html</td>
+                        <td></td>
+                        <td>true</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>/upload</td>
+                        <td>www/public/upload/</td>
+                        <td></td>
+                        <td>true</td>
+                        <td>POST, DELETE</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>/cgi</td>
+                        <td>www/cgi_bin</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>.php, /usr/bin/php; .py, /usr/bin/python3; .sh, /bin/bash</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPythonForm() {
+            document.getElementById('pythonForm').style.display = 'block';
+            document.getElementById('phpForm').style.display = 'none';
+            document.getElementById('bashForm').style.display = 'none';
+        }
+
+        function showPhpForm() {
+            document.getElementById('pythonForm').style.display = 'none';
+            document.getElementById('phpForm').style.display = 'block';
+            document.getElementById('bashForm').style.display = 'none';
+        }
+
+        function showBashForm() {
+            document.getElementById('pythonForm').style.display = 'none';
+            document.getElementById('phpForm').style.display = 'none';
+            document.getElementById('bashForm').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

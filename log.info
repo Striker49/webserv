@@ -1,0 +1,65 @@
+[34m=================================================[0m
+[34m| Property      | Value                        |[0m
+[34m_________________________________________________[0m
+[32m| Listen Ports  |2323                          |
+[32m| Server Name   |webserv                       |[0m
+[32m| Root Directory|                              |[0m
+[32m| Max Body Size |100000000                     |[0m
+[33m=================================================[0m
+[33m| Locations:[0m
+[33m-------------------------------------------------[0m
+[36m| Path          |/                             |[0m
+[36m| Root          |www/                          |[0m
+[36m| Index         |www/public/html/index3.html   |[0m
+[36m| Autoindex     |true                          |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/public                       |[0m
+[36m| Root          |www/public                    |[0m
+[36m| Index         |                              |[0m
+[36m| Autoindex     |false                         |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/public/assets                |[0m
+[36m| Root          |www/public/assets             |[0m
+[36m| Index         |                              |[0m
+[36m| Autoindex     |false                         |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/public/css                   |[0m
+[36m| Root          |www/public/css                |[0m
+[36m| Index         |                              |[0m
+[36m| Autoindex     |false                         |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/public/html                  |[0m
+[36m| Root          |www/public/html               |[0m
+[36m| Index         |index3.html                   |[0m
+[36m| Autoindex     |true                          |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/public/javascript            |[0m
+[36m| Root          |www/public/javascript         |[0m
+[36m| Index         |                              |[0m
+[36m| Autoindex     |false                         |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/err                          |[0m
+[36m| Root          |www/public/html/error         |[0m
+[36m| Index         |                              |[0m
+[36m| Autoindex     |false                         |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/teapot                       |[0m
+[36m| Root          |www/public/html/error/418.html|[0m
+[36m| Index         |www/public/html/error/teapot  |[0m
+[36m| Autoindex     |false                         |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/upload                       |[0m
+[36m| Root          |www/public/upload             |[0m
+[36m| Index         |                              |[0m
+[36m| Autoindex     |false                         |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/cgi_bin                      |[0m
+[36m| Root          |www/cgi_bin                   |[0m
+[36m| Index         |                              |[0m
+[36m| Autoindex     |false                         |[0m
+[36m-------------------------------------------------[0m
+[36m| Path          |/cgi                          |[0m
+[36m| Root          |www/cgi_bin                   |[0m
+[36m| Index         |                              |[0m
+[36m| Autoindex     |false                         |[0m
+[36m-------------------------------------------------[0m

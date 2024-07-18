@@ -13,10 +13,18 @@ DEFAULT = \033[0m
 
 #--- LIBRARIES AND HEADERS ---#
 
-HEADER_FILES	=	webserv.hpp utils/logger.hpp utils/colors.hpp utils/utils.hpp \
-					server/config/config_parser.hpp server/core/server.hpp \
-					sockets/sockets.hpp sockets/socket_manager.hpp \
-					client/client.hpp client/client_manager.hpp client/connection/client_connection.hpp client/request/client_request.hpp client/response/client_response.hpp
+HEADER_FILES	=	webserv.hpp \
+					cgi/cgi.hpp \
+					server/config/parser.hpp \
+					server/core/core.hpp \
+					server/handlers/locations.hpp \
+					server/signals/signals.hpp \
+					server/server.hpp \
+					sockets/sockets.hpp \
+					http/request/http_request.hpp \
+					http/response/http_response.hpp \
+					http/methods/http_methods.hpp \
+					utils/debug/colors.hpp utils/logging/logger.hpp 
 HEADERS			=	$(addprefix $(INCDIR)/, $(HEADER_FILES))
 
 LIB			=	
@@ -32,7 +40,7 @@ ifeq ($(OS),Linux)
 	CFLAGS = -Wall -Wextra -Werror
 endif
 ifeq ($(OS),Darwin)
-	CFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic 
+	CFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic -fsanitize=address -g
 #CFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic-errors -nostdinc++ -nostdlib++ -I/path/to/c++98/includes -L/path/to/c++98/libs
 endif
 
@@ -48,7 +56,21 @@ BINDIR	=	bin
 
 #--- SOURCES ---#
 
-SRCS	=	main.cpp utils/logger.cpp utils/print_servers.cpp server/config/config_parser.cpp server/config/locations.cpp server/core/server.cpp sockets/sockets.cpp sockets/socket_manager.cpp client/client.cpp client/client_manager.cpp client/connection/client_connection.cpp client/request/client_request.cpp client/response/client_response.cpp
+SRCS	=	main.cpp \
+			cgi/cgi.cpp \
+			server/config/parser.cpp \
+			server/core/core.cpp \
+			server/handlers/locations.cpp \
+			server/signals/shutdown.cpp \
+			server/server.cpp \
+			sockets/sockets.cpp \
+			http/request/http_request.cpp \
+			http/response/http_response.cpp \
+			http/methods/http_methods.cpp \
+			utils/debug/print_servers.cpp \
+			utils/debug/cout_msg.cpp \
+			utils/logging/logger.cpp
+
 SRC		=	$(addprefix $(SRCDIR)/, $(SRCS))
 BIN     =	$(patsubst $(SRCDIR)/%.cpp,$(BINDIR)/%.o,$(SRC))
 
